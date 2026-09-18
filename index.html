@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>STTC PROJECTS | Construction & Maintenance</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary: #1e40af;
+      --primary-dark: #1e3a8a;
+      --primary-light: #3b82f6;
+      --accent: #0ea5e9;
+      --accent-soft: #e0f2fe;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --border: #e2e8f0;
+      --shadow: 0 12px 30px rgba(30, 64, 175, 0.08);
+      --shadow-lg: 0 25px 50px -12px rgba(30, 64, 175, 0.18);
+      --radius: 24px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* === ANIMATIONS === */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.45); }
+      70% { box-shadow: 0 0 0 16px rgba(14, 165, 233, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0); }
+    }
+
+    /* === GLOBAL === */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    section {
+      padding: 5rem 0;
+    }
+
+    /* Hero section must not inherit vertical padding */
+    section.hero-carousel {
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3 {
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 2.35rem;
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+      color: var(--text);
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 70px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 4px;
+      transition: width 0.4s ease;
+    }
+
+    h2:hover::after {
+      width: 100%;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+      padding: 0.95rem 2.1rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 10px 25px -6px rgba(30, 64, 175, 0.45);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px -6px rgba(30, 64, 175, 0.5);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.85);
+      box-shadow: none;
+      color: white;
+    }
+
+    .btn-outline:hover {
+      background: white;
+      color: var(--primary);
+      border-color: white;
+    }
+
+    .btn-outline::before {
+      display: none;
+    }
+
+    /* === HEADER === */
+    header {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 4px 24px rgba(30, 64, 175, 0.06);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0.85rem 0;
+      transition: box-shadow 0.3s ease;
+    }
+
+    header.scrolled {
+      box-shadow: 0 8px 30px rgba(30, 64, 175, 0.12);
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 1.85rem;
+      font-weight: 700;
+      letter-spacing: -0.6px;
+      color: var(--text);
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.02);
+    }
+
+    .logo span {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      transition: color 0.25s;
+      font-size: 1.05rem;
+      position: relative;
+      padding: 0.25rem 0;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%;
+      height: 2.5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 2px;
+      transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--primary);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.8rem;
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .menu-toggle:hover {
+      color: var(--primary);
+    }
+
+    /* === SOCIAL ICONS === */
+    .social-icons {
+      display: flex;
+      gap: 0.9rem;
+      margin-top: 1.5rem;
+    }
+
+    .social-icons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      background: var(--accent-soft);
+      color: var(--primary);
+      border-radius: 50%;
+      text-decoration: none;
+      transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      font-size: 1.05rem;
+    }
+
+    .social-icons a:hover {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      transform: translateY(-5px) scale(1.08);
+      box-shadow: 0 8px 20px rgba(30, 64, 175, 0.3);
+    }
+
+    /* === HERO CAROUSEL === */
+    .hero-carousel {
+      position: relative;
+      width: 100%;
+      /* Full viewport minus sticky header so no empty gap below */
+      height: calc(100svh - 4.5rem);
+      min-height: 420px;
+      overflow: hidden;
+      background: #0f172a;
+      padding: 0 !important;
+      margin: 0;
+    }
+
+    .carousel-track {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .carousel-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1s ease, visibility 1s ease;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
+    }
+
+    .carousel-slide.active {
+      opacity: 1;
+      visibility: visible;
+      z-index: 1;
+    }
+
+    .carousel-slide::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.82) 0%, rgba(30, 64, 175, 0.55) 50%, rgba(14, 165, 233, 0.35) 100%);
+      z-index: 0;
+    }
+
+    .carousel-content {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+      color: white;
+      padding: 0 1.5rem;
+    }
+
+    .carousel-content h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      margin-bottom: 1.3rem;
+      line-height: 1.15;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+
+    .carousel-content h1 .highlight {
+      background: linear-gradient(135deg, #38bdf8, #7dd3fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .carousel-content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.95;
+      max-width: 540px;
+      line-height: 1.65;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .carousel-nav {
+      position: absolute;
+      bottom: 2.2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 0.65rem;
+      z-index: 10;
+    }
+
+    .carousel-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      border: none;
+      cursor: pointer;
+      transition: all 0.35s ease;
+      padding: 0;
+    }
+
+    .carousel-dot:hover {
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .carousel-dot.active {
+      background: white;
+      width: 32px;
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+    }
+
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: white;
+      font-size: 1.15rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .carousel-arrow:hover {
+      background: rgba(255, 255, 255, 0.32);
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .carousel-arrow.prev { left: 1.4rem; }
+    .carousel-arrow.next { right: 1.4rem; }
+
+    .carousel-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), #7dd3fc);
+      width: 0%;
+      z-index: 10;
+    }
+
+    /* === WHY CHOOSE / HIGHLIGHTS === */
+    .service-highlights {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.8rem;
+      margin-top: 3rem;
+    }
+
+    .highlight-card {
+      background: var(--surface);
+      padding: 2.2rem 1.6rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      text-align: center;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .highlight-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .highlight-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .highlight-card:hover {
+      transform: translateY(-12px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(30, 64, 175, 0.2);
+    }
+
+    .highlight-card .icon-wrap {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 1.2rem;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--accent-soft), #dbeafe);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s ease;
+    }
+
+    .highlight-card:hover .icon-wrap {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      transform: scale(1.08) rotate(-4deg);
+      box-shadow: 0 12px 24px rgba(30, 64, 175, 0.3);
+    }
+
+    .highlight-card i {
+      font-size: 1.9rem;
+      color: var(--primary);
+      transition: color 0.3s;
+    }
+
+    .highlight-card:hover i {
+      color: white;
+    }
+
+    .highlight-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .highlight-card p {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+    }
+
+    /* === GALLERY / RECENT WORK === */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.8rem;
+      margin-top: 2rem;
+    }
+
+    .gallery-item {
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      position: relative;
+      background: var(--surface);
+      transition: all 0.4s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .gallery-img-wrap {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+    }
+
+    .gallery-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .gallery-item:hover .gallery-img-wrap img {
+      transform: scale(1.1);
+    }
+
+    .gallery-caption {
+      padding: 1.25rem 1.4rem 1.5rem;
+    }
+
+    .gallery-caption h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+    }
+
+    .gallery-caption p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* === ABOUT === */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      margin-top: 2.5rem;
+    }
+
+    .about-img {
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .about-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .about-img:hover img {
+      transform: scale(1.06);
+    }
+
+    .about-text p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+    }
+
+    .stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 2.2rem;
+      flex-wrap: wrap;
+    }
+
+    .stat h4 {
+      font-size: 2.2rem;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .stat p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin: 0.2rem 0 0;
+    }
+
+    /* === SERVICES === */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.8rem;
+      margin-top: 2.2rem;
+    }
+
+    .service-card {
+      background: var(--surface);
+      padding: 2.2rem 1.9rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0;
+      background: linear-gradient(180deg, transparent, rgba(30, 64, 175, 0.04));
+      transition: height 0.4s ease;
+    }
+
+    .service-card:hover::after {
+      height: 100%;
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px) scale(1.015);
+      border-color: rgba(30, 64, 175, 0.25);
+      box-shadow: 0 28px 45px -12px rgba(30, 64, 175, 0.18);
+    }
+
+    .service-card .icon-wrap {
+      width: 58px;
+      height: 58px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--accent-soft), #dbeafe);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.3rem;
+      transition: all 0.4s ease;
+    }
+
+    .service-card:hover .icon-wrap {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      transform: rotate(-6deg) scale(1.1);
+      box-shadow: 0 10px 20px rgba(30, 64, 175, 0.3);
+    }
+
+    .service-card i {
+      font-size: 1.5rem;
+      color: var(--primary);
+      transition: color 0.3s;
+    }
+
+    .service-card:hover i {
+      color: white;
+    }
+
+    .service-card h3 {
+      font-size: 1.35rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .service-card p {
+      color: var(--text-muted);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* === CONTACT === */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-top: 2.5rem;
+    }
+
+    .contact-info p {
+      margin-bottom: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      font-size: 1.08rem;
+      color: var(--text-muted);
+    }
+
+    .contact-info i {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 8px;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .contact-info a {
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-info a:hover {
+      color: var(--primary);
+    }
+
+    .contact-form {
+      background: var(--surface);
+      padding: 2.6rem;
+      border-radius: 32px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+    }
+
+    .contact-form h3 {
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 1.05rem 1.3rem;
+      border: 1.5px solid var(--border);
+      border-radius: 18px;
+      font-family: inherit;
+      font-size: 1rem;
+      margin-bottom: 1.15rem;
+      transition: all 0.3s ease;
+      background: #f8fafc;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      background: white;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+    }
+
+    .contact-form textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    /* === FOOTER === */
+    footer {
+      background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+      color: #94a3b8;
+      padding: 3.5rem 0 2rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .footer-col h4 {
+      color: white;
+      margin-bottom: 1.3rem;
+      font-size: 1.2rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .footer-col h4::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 36px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      border-radius: 2px;
+    }
+
+    .footer-col p {
+      margin-bottom: 0.65rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .footer-col a {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+
+    .footer-col a:hover {
+      color: #7dd3fc;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 0.9rem;
+      margin-top: 1.3rem;
+    }
+
+    .footer-social a {
+      background: rgba(255, 255, 255, 0.08);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.35s ease;
+      text-decoration: none;
+    }
+
+    .footer-social a:hover {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(14, 165, 233, 0.35);
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 2.5rem;
+      margin-top: 2.2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.9rem;
+      color: #64748b;
+    }
+
+    /* === FLOATING WHATSAPP === */
+    .float-wa {
+      position: fixed;
+      bottom: 26px;
+      right: 26px;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: white;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 10px 28px rgba(37, 211, 102, 0.45);
+      z-index: 200;
+      transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      animation: pulseGlow 2.8s infinite;
+      text-decoration: none;
+    }
+
+    .float-wa:hover {
+      background: linear-gradient(135deg, #20b859, #0d7a6a);
+      transform: scale(1.12);
+      box-shadow: 0 14px 32px rgba(37, 211, 102, 0.55);
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1), transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 900px) {
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      .carousel-arrow {
+        width: 42px;
+        height: 42px;
+        font-size: 1rem;
+      }
+
+      .carousel-arrow.prev { left: 0.7rem; }
+      .carousel-arrow.next { right: 0.7rem; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 1.1rem;
+        padding: 1.4rem 0 0.5rem;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      h2 {
+        font-size: 1.9rem;
+      }
+
+      .carousel-content h1 {
+        font-size: 2rem;
+      }
+
+      .carousel-content p {
+        font-size: 1.05rem;
+      }
+
+      section {
+        padding: 3.5rem 0;
+      }
+
+      .contact-form {
+        padding: 1.8rem;
+      }
+
+      .hero-carousel {
+        height: calc(100svh - 4.2rem);
+        min-height: 380px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-buttons .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .stats {
+        gap: 1.5rem;
+      }
+
+      .carousel-nav {
+        bottom: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="mainHeader">
+    <div class="container nav-container">
+      <a href="#home" class="logo">STTC <span>PROJECTS</span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ========== HOME / HERO CAROUSEL ========== -->
+  <section id="home" class="hero-carousel">
+    <div class="carousel-track" id="carouselTrack">
+      <!-- Slide 1 -->
+      <div class="carousel-slide active" style="background-image: url('images/6.jpeg');">
+        <div class="container carousel-content">
+          <h1>Building. Restoring. <span class="highlight">Seamless Gutters</span></h1>
+          <p>STTC PROJECTS delivers expert waterproofing, road installation, painting, and more — with precision and lasting quality.</p>
+          <div class="hero-buttons">
+            <a href="#contact" class="btn">Get a free quote</a>
+            <a href="#services" class="btn btn-outline">Our services</a>
+          </div>
+        </div>
+      </div>
+      <!-- Slide 2 -->
+      <div class="carousel-slide" style="background-image: url('images/12.jpeg');">
+        <div class="container carousel-content">
+          <h1><span class="highlight">Seamless Gutters</span></h1>
+          <p>Durable gutter systems for any roof.</p>
+          <div class="hero-buttons">
+            <a href="#contact" class="btn">Request a quote</a>
+            <a href="#services" class="btn btn-outline">View services</a>
+          </div>
+        </div>
+      </div>
+      <!-- Slide 3 -->
+      <div class="carousel-slide" style="background-image: url('images/13.jpeg');">
+        <div class="container carousel-content">
+          <h1>Waterproofing That <span class="highlight">Lasts</span></h1>
+          <p>Protect balconies, slabs, roofs and basements with proven systems that keep water out for good.</p>
+          <div class="hero-buttons">
+            <a href="#contact" class="btn">Get protection</a>
+            <a href="#about" class="btn btn-outline">About us</a>
+          </div>
+        </div>
+      </div>
+      <!-- Slide 4 -->
+      <div class="carousel-slide" style="background-image: url('images/20.jpeg');">
+        <div class="container carousel-content">
+          <h1>Seamless Gutters & <span class="highlight">Roof Care</span></h1>
+          <p>Custom seamless gutter systems and professional roof painting to safeguard your property year-round.</p>
+          <div class="hero-buttons">
+            <a href="#contact" class="btn">Book a visit</a>
+            <a href="#services" class="btn btn-outline">Explore services</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="carousel-arrow prev" id="carouselPrev" aria-label="Previous slide"><i class="fas fa-chevron-left"></i></button>
+    <button class="carousel-arrow next" id="carouselNext" aria-label="Next slide"><i class="fas fa-chevron-right"></i></button>
+
+    <div class="carousel-nav" id="carouselDots"></div>
+    <div class="carousel-progress" id="carouselProgress"></div>
+  </section>
+
+  <!-- ========== WHY CHOOSE ========== -->
+  <section id="why">
+    <div class="container">
+      <h2 class="reveal">Why choose STTC?</h2>
+      <div class="service-highlights">
+        <div class="highlight-card reveal">
+          <div class="icon-wrap"><i class="fas fa-shield-alt"></i></div>
+          <h3>Waterproofing</h3>
+          <p>Balconies, slabs & damp proofing done right.</p>
+        </div>
+     
+        <div class="highlight-card reveal">
+          <div class="icon-wrap"><i class="fas fa-paint-roller"></i></div>
+          <h3>Painting</h3>
+          <p>Interior, exterior & roof painting.</p>
+        </div>
+        <div class="highlight-card reveal">
+          <div class="icon-wrap"><i class="fas fa-water"></i></div>
+          <h3>Seamless Gutters</h3>
+          <p>Durable gutter systems for any roof.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== RECENT WORK ========== -->
+  <section id="work" style="padding-top: 2rem;">
+    <div class="container">
+      <h2 class="reveal">Recent work</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrap">
+            <img src="images/5.jpeg" alt="Construction & concrete works">
+          </div>
+          <div class="gallery-caption">
+            <h3>Construction & Concrete</h3>
+            <p>New concrete slabs, driveways and structural works completed to professional standards.</p>
+          </div>
+        </div>
+    
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrap">
+            <img src="images/13.jpeg" alt="Painting & finishing">
+          </div>
+          <div class="gallery-caption">
+            <h3>Painting & Finishing</h3>
+            <p>Interior and exterior painting with premium finishes that last for years.</p>
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrap">
+            <img src="images/21.jpeg" alt="Gutter & roof care">
+          </div>
+          <div class="gallery-caption">
+            <h3>Gutters & Roof Care</h3>
+            <p>Seamless gutter installation and roof painting to protect against water damage.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section id="about">
+    <div class="container">
+      <h2 class="reveal">About STTC PROJECTS</h2>
+      <div class="about-grid">
+        <div class="about-img reveal">
+          <img src="images/8.jpeg" alt="Team working on site">
+        </div>
+        <div class="about-text reveal">
+          <p><strong>STTC PROJECTS</strong> is a trusted name in construction and property maintenance. With years of hands-on experience, we specialise in waterproofing, painting, roof painting, damp proofing, and seamless gutters.</p>
+          <p>Our mission is simple: deliver durable, high-quality workmanship that protects your property and adds long-term value. We use premium materials and proven techniques to ensure every project stands the test of time.</p>
+          <div class="stats">
+            <div class="stat">
+              <h4>500+</h4>
+              <p>Projects completed</p>
+            </div>
+            <div class="stat">
+              <h4>15</h4>
+              <p>Years experience</p>
+            </div>
+            <div class="stat">
+              <h4>100%</h4>
+              <p>Client satisfaction</p>
+            </div>
+          </div>
+          <div class="social-icons">
+            <!-- <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a> -->
+            <!-- <a href="https://wa.me/27736180315" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SERVICES ========== -->
+  <section id="services">
+    <div class="container">
+      <h2 class="reveal">Our Services</h2>
+      <p class="reveal" style="max-width: 600px; color: var(--text-muted); margin-top: 0.5rem;">Professional solutions for residential and commercial properties.</p>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="icon-wrap"><i class="fas fa-tint"></i></div>
+          <h3>Waterproofing</h3>
+          <p>Balconies, concrete slabs, roofs and basements – we stop water ingress for good.</p>
+        </div>
+     
+        <div class="service-card reveal">
+          <div class="icon-wrap"><i class="fas fa-paint-brush"></i></div>
+          <h3>Painting</h3>
+          <p>Interior and exterior painting with premium paints and flawless finishes.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="icon-wrap"><i class="fas fa-home"></i></div>
+          <h3>Roof painting</h3>
+          <p>Restore and protect your roof with specialised roof coatings and paints.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="icon-wrap"><i class="fas fa-water"></i></div>
+          <h3>Damp proofing</h3>
+          <p>Rising damp and moisture control – keep your walls dry and healthy.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="icon-wrap"><i class="fas fa-arrow-down"></i></div>
+          <h3>Seamless Gutters</h3>
+          <p>Custom seamless gutter installation for efficient water drainage.</p>
+        </div>
+      </div>
+      <div style="margin-top: 3.2rem; text-align: center;">
+        <a href="#contact" class="btn reveal">Request a quote <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT ========== -->
+  <section id="contact">
+    <div class="container">
+      <h2 class="reveal">Contact us</h2>
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <p><i class="fas fa-phone-alt"></i> <strong>Phone / WhatsApp:</strong> <a href="tel:0736180315">073 618 0315</a></p>
+          <p><i class="fas fa-envelope"></i> <strong>Email:</strong> <a href="mailto:info@sttcprojects.co.za">info@sttcprojects.co.za</a></p>
+          <p><i class="fas fa-map-marker-alt"></i> <strong>Service area:</strong> Nationwide (South Africa)</p>
+          <p><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> <a href="https://wa.me/27736180315" target="_blank" rel="noopener">Chat now</a></p>
+          <div class="social-icons">
+            <!-- <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a> -->
+            <!-- <a href="https://wa.me/27736180315" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a> -->
+          </div>
+        </div>
+        <div class="contact-form reveal">
+          <h3>Send a message</h3>
+          <form onsubmit="alert('Thank you! We will contact you shortly.'); return false;">
+            <input type="text" placeholder="Your name" required>
+            <input type="email" placeholder="Email address" required>
+            <input type="tel" placeholder="Phone number">
+            <textarea rows="4" placeholder="Tell us about your project..."></textarea>
+            <button type="submit" class="btn" style="width: 100%;">Send message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>STTC PROJECTS</h4>
+          <p>Waterproofing, roads, painting, damp proofing & gutters.</p>
+          <div class="footer-social">
+            <!-- <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a> -->
+            <!-- <a href="https://wa.me/27736180315" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a> -->
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick links</h4>
+          <p><a href="#home">Home</a></p>
+          <p><a href="#about">About</a></p>
+          <p><a href="#services">Services</a></p>
+          <p><a href="#contact">Contact</a></p>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p><i class="fas fa-phone-alt"></i> 073 618 0315</p>
+          <p><i class="fab fa-whatsapp"></i> 073 618 0315</p>
+          <p><i class="fas fa-envelope"></i> info@sttcprojects.co.za</p>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2026 STTC PROJECTS. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/27736180315" class="float-wa" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+
+  <script>
+    (function () {
+      // ========== MOBILE MENU ==========
+      const menuToggle = document.getElementById('menuToggle');
+      const navLinksContainer = document.getElementById('navLinks');
+      const header = document.getElementById('mainHeader');
+
+      menuToggle.addEventListener('click', function () {
+        navLinksContainer.classList.toggle('show');
+      });
+
+      // Close mobile menu when a link is clicked
+      document.querySelectorAll('.nav-link').forEach(function (link) {
+        link.addEventListener('click', function () {
+          navLinksContainer.classList.remove('show');
+        });
+      });
+
+      // Header shadow on scroll
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 20) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      });
+
+      // ========== ACTIVE NAV ON SCROLL ==========
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.nav-link');
+
+      function updateActiveNav() {
+        const scrollY = window.scrollY + 120;
+        sections.forEach(function (section) {
+          const top = section.offsetTop;
+          const height = section.offsetHeight;
+          const id = section.getAttribute('id');
+          if (scrollY >= top && scrollY < top + height) {
+            navLinks.forEach(function (link) {
+              link.classList.remove('active');
+              if (link.getAttribute('href') === '#' + id) {
+                link.classList.add('active');
+              }
+            });
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateActiveNav);
+
+      // ========== CAROUSEL ==========
+      const slides = document.querySelectorAll('.carousel-slide');
+      const dotsContainer = document.getElementById('carouselDots');
+      const progressBar = document.getElementById('carouselProgress');
+      const prevBtn = document.getElementById('carouselPrev');
+      const nextBtn = document.getElementById('carouselNext');
+      const carousel = document.getElementById('home');
+
+      let currentSlide = 0;
+      let autoPlayTimer = null;
+      const SLIDE_DURATION = 5000;
+      let isPaused = false;
+
+      // Create dots
+      slides.forEach(function (_, i) {
+        const dot = document.createElement('button');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        dot.addEventListener('click', function () {
+          goToSlide(i);
+          restartAutoPlay();
+        });
+        dotsContainer.appendChild(dot);
+      });
+
+      const dots = document.querySelectorAll('.carousel-dot');
+
+      function goToSlide(index) {
+        slides[currentSlide].classList.remove('active');
+        dots[currentSlide].classList.remove('active');
+        currentSlide = (index + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+        dots[currentSlide].classList.add('active');
+        resetProgress();
+      }
+
+      function nextSlide() {
+        goToSlide(currentSlide + 1);
+      }
+
+      function prevSlide() {
+        goToSlide(currentSlide - 1);
+      }
+
+      prevBtn.addEventListener('click', function () {
+        prevSlide();
+        restartAutoPlay();
+      });
+
+      nextBtn.addEventListener('click', function () {
+        nextSlide();
+        restartAutoPlay();
+      });
+
+      function resetProgress() {
+        if (!progressBar) return;
+        progressBar.style.transition = 'none';
+        progressBar.style.width = '0%';
+        void progressBar.offsetWidth;
+        if (!isPaused) {
+          progressBar.style.transition = 'width ' + (SLIDE_DURATION / 1000) + 's linear';
+          progressBar.style.width = '100%';
+        }
+      }
+
+      function startAutoPlay() {
+        stopAutoPlay();
+        isPaused = false;
+        resetProgress();
+        autoPlayTimer = setInterval(nextSlide, SLIDE_DURATION);
+      }
+
+      function stopAutoPlay() {
+        isPaused = true;
+        if (autoPlayTimer) {
+          clearInterval(autoPlayTimer);
+          autoPlayTimer = null;
+        }
+        if (progressBar) {
+          progressBar.style.transition = 'none';
+        }
+      }
+
+      function restartAutoPlay() {
+        stopAutoPlay();
+        startAutoPlay();
+      }
+
+      // Pause on hover
+      carousel.addEventListener('mouseenter', stopAutoPlay);
+      carousel.addEventListener('mouseleave', startAutoPlay);
+
+      // Touch swipe support
+      let touchStartX = 0;
+      carousel.addEventListener('touchstart', function (e) {
+        touchStartX = e.changedTouches[0].screenX;
+        stopAutoPlay();
+      }, { passive: true });
+
+      carousel.addEventListener('touchend', function (e) {
+        const touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) nextSlide();
+          else prevSlide();
+        }
+        startAutoPlay();
+      }, { passive: true });
+
+      // Start carousel
+      startAutoPlay();
+
+      // ========== SCROLL REVEAL ==========
+      const revealEls = document.querySelectorAll('.reveal');
+      const revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+      revealEls.forEach(function (el) {
+        revealObserver.observe(el);
+      });
+    })();
+  </script>
+</body>
+</html>
